@@ -452,6 +452,25 @@ int atouch_wait_ex(ATEV * atev, byte calibratingtouch) {
         case KEY_BACK:
           return ATEV_BACK;
           break;
+          /* BIXBY KEY */
+        case 703: {
+            if (volume_down_pressed) {
+              if (atev->d) {
+                vibrate(30);
+                LOGS("PRINT SCREEN...\n");
+                ag_takescreenshoot();
+                usleep(200000);
+                vibrate(30);
+                usleep(200000);
+                vibrate(30);
+                volume_down_pressed = 2;
+              }
+            }
+            else {
+              return ATEV_SELECT;
+            }
+          }
+          break;
       }
     }
   }
