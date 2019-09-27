@@ -21,8 +21,8 @@
 #           amarullz - xda-developers
 #           http://www.amarullz.com/
 #
-#       Binary Version  : 2.70B
-#       Binary Codename : Flamboyan
+#       Binary Version  : 3.00B1
+#       Binary Codename : Melati
 #
 ### INFO:
 #
@@ -96,10 +96,10 @@
 # Initializing Rom Information
 #
 ini_set("rom_name",             "AROMA Test Zip");
-ini_set("rom_version",          "2.70");
+ini_set("rom_version",          "3.00");
 ini_set("rom_author",           "amarullz");
 ini_set("rom_device",           "Any Device");
-ini_set("rom_date",             "June, 18 2013");
+ini_set("rom_date",             "Feb, 28 2015");
 
 
 ##
@@ -132,9 +132,8 @@ anisplash(
 #
 # Set Small Font to Support all fonts
 #
-fontresload( "0", "ttf/Roboto-Regular.ttf;ttf/DroidSansFallback.ttf;", "12" ); #-- Use sets of font (Font Family)
-fontresload( "1", "ttf/Roboto-Regular.ttf;ttf/DroidSansFallback.ttf;", "14" ); #-- Use sets of font (Font Family)
-
+fontresload( "0", "ttf/Roboto-Regular.ttf;ttf/DroidSansFallback.ttf;", "12" );
+fontresload( "1", "ttf/Roboto-Regular.ttf;ttf/DroidSansFallback.ttf;", "14" );
 #
 # INCLUDE EXAMPLE = Language Selection & Form Example
 #
@@ -235,8 +234,8 @@ viewbox(
     
     "<~welcome.text2>\n\n"+
 	
-      "  <~welcome.version>\t: <b><#selectbg_g>"+ini_get("rom_version")+"</#></b>\n"+
-      "  <~welcome.codename>\t\t: <b><#selectbg_g>Flamboyan Beta</#></b>\n"+
+      "  <~welcome.version>\t\t: <b><#selectbg_g>"+ini_get("rom_version")+"</#></b>\n"+
+      "  <~welcome.codename>\t\t: <b><#selectbg_g>Melati Beta</#></b>\n"+
       "  <~welcome.updated>\t\t: <b><#selectbg_g>"+ini_get("rom_date")+"</#></b>\n\n\n"+
 
     "<~welcome.next>",
@@ -361,25 +360,25 @@ if prop("demo.prop","selected")=="2" then
     #-- Variable Value
       "<@center><b>Your Device System Information</b></@>\n\n"+
       
-      "Model\t\t\t: <b><#selectbg_g>"+sysprop("ro.product.model")+"</#></b>\n"+
-      "Name\t\t\t: <b><#selectbg_g>"+sysprop("ro.product.name")+"</#></b>\n"+
-      "Device Name\t\t: <b><#selectbg_g>"+sysprop("ro.product.device")+"</#></b>\n"+
+      "Model\t\t\t: <b><#selectbg_g>"+sysprop("ro.product.system.model")+"</#></b>\n"+
+      "Name\t\t\t: <b><#selectbg_g>"+sysprop("ro.product.system.name")+"</#></b>\n"+
+      "Device Name\t\t: <b><#selectbg_g>"+sysprop("ro.product.system.device")+"</#></b>\n"+
       "Board Name\t\t: <b><#selectbg_g>"+sysprop("ro.product.board")+"</#></b>\n"+
-      "Manufacturer\t\t: <b><#selectbg_g>"+sysprop("ro.product.manufacturer")+"</#></b>\n\n"+
+      "Manufacturer\t\t: <b><#selectbg_g>"+sysprop("ro.product.system.manufacturer")+"</#></b>\n\n"+
       
-      "CPU\t\t\t: <b><#selectbg_g>"+sysprop("ro.product.cpu.abi")+"</#></b>\n"+
-      "LCD Desinty\t\t: <b><#selectbg_g>"+sysprop("ro.sf.lcd_density")+"</#></b>\n\n"+
+      "CPU\t\t\t\t: <b><#selectbg_g>"+sysprop("ro.product.cpu.abi")+"</#></b>\n"+
+      "LCD Density\t\t: <b><#selectbg_g>"+sysprop("ro.sf.lcd_density")+"</#></b>\n\n"+
       
       "System Size\t\t: <b><#selectbg_g>"+getdisksize("/system","m")+" MB</#></b>\n"+
-        "\tFree\t\t: <b><#selectbg_g>"+getdiskfree("/system","m")+" MB</#></b>\n\n"+
-      "Data Size\t\t: <b><#selectbg_g>"+getdisksize("/data","m")+" MB</#></b>\n"+
-        "\tFree\t\t: <b><#selectbg_g>"+getdiskfree("/data","m")+" MB</#></b>\n\n"+
+        "\tFree\t\t\t: <b><#selectbg_g>"+getdiskfree("/system","m")+" MB</#></b>\n\n"+
+      "Data Size\t\t\t: <b><#selectbg_g>"+getdisksize("/data","m")+" MB</#></b>\n"+
+        "\tFree\t\t\t: <b><#selectbg_g>"+getdiskfree("/data","m")+" MB</#></b>\n\n"+
       "(/mnt/sdcard)\t\t: <b><#selectbg_g>"+getdisksize("/mnt/sdcard","m")+" MB</#></b>\n"+
-        "\tFree\t\t: <b><#selectbg_g>"+getdiskfree("/mnt/sdcard","m")+" MB</#></b>\n\n"+
+        "\tFree\t\t\t: <b><#selectbg_g>"+getdiskfree("/mnt/sdcard","m")+" MB</#></b>\n\n"+
       "SDCard Size\t\t: <b><#selectbg_g>"+getdisksize("/sdcard","m")+" MB</#></b>\n"+
-        "\tFree\t\t: <b><#selectbg_g>"+getdiskfree("/sdcard","m")+" MB</#></b>\n\n"+
+        "\tFree\t\t\t: <b><#selectbg_g>"+getdiskfree("/sdcard","m")+" MB</#></b>\n\n"+
       "SD-EXT Size\t\t: <b><#selectbg_g>"+getdisksize("/sd-ext","m")+" MB</#></b>\n"+
-        "\tFree\t\t: <b><#selectbg_g>"+getdiskfree("/sd-ext","m")+" MB</#></b>\n\n"+
+        "\tFree\t\t\t: <b><#selectbg_g>"+getdiskfree("/sd-ext","m")+" MB</#></b>\n\n"+
 
       ""
   );
@@ -1005,9 +1004,8 @@ if prop("demo.prop","selected")=="8" then
 	);
 	
 	#-- Change Back To Normal Font
-	fontresload("0","fonts/small","0"); #-- Small Font
-	fontresload("1","fonts/big","0");   #-- Big Font
-	
+	fontresload("0","fonts/small","0");
+	fontresload("1","fonts/big","0");
 	#-- Show Alert
 	alert(
 	  #-- Alert Title
@@ -1047,8 +1045,8 @@ if prop("demo.prop","selected")=="8" then
 	);
 	
 	#-- Change Back To Normal Font
-	fontresload("0","fonts/small","0"); #-- Small Font
-	fontresload("1","fonts/big","0");   #-- Big Font
+	fontresload("0","fonts/small","0");
+	fontresload("1","fonts/big","0");
 	
 	#-- Show Alert
 	alert(
@@ -1089,8 +1087,8 @@ if prop("demo.prop","selected")=="8" then
 	);
 	
 	#-- Change Back To Normal Font
-	fontresload("0","fonts/small","0"); #-- Small Font
-	fontresload("1","fonts/big","0");   #-- Big Font
+	fontresload("0","fonts/small","0");
+	fontresload("1","fonts/big","0");
 	
 	#-- Show Alert
 	alert(

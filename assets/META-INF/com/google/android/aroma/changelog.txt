@@ -1,3 +1,10 @@
+<b><#selectbg_g>MELATI BETA - 3.00B1</#></b>
+<*>new engine fb & input driver</*>
+<*>support msmfb overlay</*>
+<*>more neon improve</*>
+<*>tweaks some ui</*>
+<*>graphics processing</*>
+
 <b><#selectbg_g>FLAMBOYAN BETA - 2.70B1-B4</#></b>
 <*><b>B4</b></*>
 <*>Fix Icon Themes Error</*>
@@ -43,7 +50,6 @@
 <*>Font will only loaded if the font is really changed - Faster-faster performance improvement</*>
 <*>Change Navigation Bar Buttons. Now next and back can be using Icons </*>
 <*>Add Menu Button for buttonless devices.</*>
-
 
 <b><#selectbg_g>EDELWEIS - 2.55</#></b>
 <*>Completely new Input/Touchscreen Handler</*>
