@@ -71,7 +71,6 @@
 #define word              unsigned short
 #define color             unsigned short
 
-
 //
 // AROMA Main Configurations
 //
@@ -94,7 +93,6 @@
 #define AROMA_INSTALL_LOG (AROMA_TMP "/.install.log")
 #define AROMA_INSTALL_TXT (AROMA_TMP "/.install.txt")
 #define AROMA_THEME_CNT   24
-
 
 //-- CALIB MATRIX
 typedef struct {
@@ -153,8 +151,6 @@ typedef struct {
   byte  * b;       // Blue Channel
   byte  * a;       // Alpha Channel
 } PNGCANVAS, * PNGCANVASP;
-
-
 
 //
 // AROMA PNG Font Canvas Structure
@@ -226,7 +222,6 @@ typedef struct {
   dword msg;      // Window Message for postmessage
 } ATEV;
 
-
 //
 // Math Macro
 //
@@ -266,7 +261,6 @@ byte ag_a32(dword rgb);
 #define ag_rgbto32(rgb)     (ag_rgba32(ag_r(rgb),ag_g(rgb),ag_b(rgb),0xff))
 #define ag_rgbto16(rgb)     (ag_rgb(ag_r32(rgb),ag_g32(rgb),ag_b32(rgb)))
 
-
 void ag_takescreenshoot();
 byte file_exists(const char * file);
 
@@ -288,7 +282,6 @@ byte file_exists(const char * file);
 #define ATEV_MESSAGE  30
 #define KEY_CENTER    232
 
-
 //
 // AROMA Kinetic Library Structures
 //
@@ -302,7 +295,6 @@ typedef struct  {
   byte    history_n;                                  // Number of Touch History
 } AKINETIC;
 
-
 //
 // AROMA Window Message - In DWORD (4bytes)
 //
@@ -312,7 +304,6 @@ typedef struct  {
 #define aw_gd(msg)      ((byte) (((word) (msg))>>8))
 #define aw_gl(msg)      ((byte) ((msg) >> 16))
 #define aw_gh(msg)      ((byte) (((dword) (msg))>>24))
-
 
 //
 // AROMA Main Configuration Structure
@@ -391,8 +382,6 @@ typedef struct  {
   char themename[64];
 } AC_CONFIG;
 
-
-
 //
 // AROMA Window Control Callback Typedef
 //
@@ -401,7 +390,6 @@ typedef void  (*AC_ONBLUR)(void *);
 typedef byte  (*AC_ONFOCUS)(void *);
 typedef void  (*AC_ONDRAW)(void *);
 typedef void  (*AC_ONDESTROY)(void *);
-
 
 //
 // AROMA Window Structure
@@ -416,7 +404,6 @@ typedef struct {
   int           focusIndex;   // Child Focus Index
   int           touchIndex;   // Child Touch Index
 } AWINDOW, *AWINDOWP;
-
 
 //
 // AROMA Control Structure
@@ -435,7 +422,6 @@ typedef struct {
   byte          forceNS;      // Force to Stop Scroll
   void     *    d;            // Control Specific Data
 } ACONTROL, *ACONTROLP;
-
 
 //#######################################################//
 //##                                                   ##//
@@ -470,13 +456,11 @@ void      az_close();                                                   // Relea
 byte      az_readmem(AZMEM * out, const char * zpath, byte bytesafe);   // Read Zip Item into Memory
 byte      az_extract(const char * zpath, const char * dest);            // Extract Zip Item into Filesystem
 
-
 //-- UI Functions
 char * aui_parsepropstring(char * buffer, char * key);
 char * aui_readfromzip(char * name);
 void aui_drawnav(CANVAS * bg, int x, int y, int w, int h);
 char * aui_getvar(char * name);
-
 
 //-- .9.png struct
 typedef struct {
@@ -491,11 +475,9 @@ typedef struct {
   int r;  //-- Padding Right
 } APNG9, *APNG9P;
 
-
 PNGCANVAS * aui_back_icon();
 PNGCANVAS * aui_next_icon();
 PNGCANVAS * aui_menu_icon();
-
 
 //
 // AROMA PNG Functions
@@ -581,14 +563,12 @@ void ag_canvas(CANVAS * c, int w, int h); // Create Canvas
 void ag_ccanvas(CANVAS * c);              // Release Canvas
 void ag_blank(CANVAS * c);                // Set Blank into Canvas memset(0)
 
-
 //
 // AROMA Canvas Manipulation Functions
 //
 color  *  agxy(CANVAS * _b, int x, int y);                            // Get Pixel Pointer
 byte      ag_setpixel(CANVAS * _b, int x, int y, color cl);           // Set Pixel Color
 byte      ag_subpixel(CANVAS * _b, int x, int y, color cl, byte l);   // Set Pixel Color with Opacity
-
 
 //
 // AROMA Canvas Drawing Functions
@@ -769,7 +749,6 @@ int         atheme_id(char * key);
 char    *   atheme_key(int id);
 byte        atheme_id_draw(int id, CANVAS * _b, int x, int y, int w, int h);
 byte        atheme_draw(char * key, CANVAS * _b, int x, int y, int w, int h);
-
 
 //
 // AROMA Window Management System Functions
@@ -964,6 +943,5 @@ byte acchkopt_itemtype(ACONTROLP ctl, int index);
 #endif
 #define STRINGIFY(x) #x
 #define EXPAND(x) STRINGIFY(x)
-
 
 #endif // __AROMA_H__
