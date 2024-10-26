@@ -127,7 +127,7 @@ LOCAL_SRC_FILES += \
 # MODULE SETTINGS
 LOCAL_MODULE_TARGET_ARCH := arm
 LOCAL_MODULE := aroma_installer
-LOCAL_MODULE_PATH := $(AROMA_INSTALLER_LOCALPATH)/out
+LOCAL_MODULE_PATH := $(PRODUCT_OUT)
 LOCAL_MODULE_TAGS := eng
 LOCAL_FORCE_STATIC_EXECUTABLE := true
 
@@ -159,20 +159,21 @@ LOCAL_STATIC_LIBRARIES := libm libc
 # Remove Old Build
 ifeq ($(MAKECMDGOALS),$(LOCAL_MODULE))
     $(shell rm -rf $(PRODUCT_OUT)/obj/EXECUTABLES/$(LOCAL_MODULE)_intermediates)
+    $(shell rm -rf $(PRODUCT_OUT)/aroma.zip)
 endif
 
 include $(BUILD_EXECUTABLE)
 
 include $(CLEAR_VARS)
 
-AROMA_ZIP_TARGET := $(AROMA_INSTALLER_LOCALPATH)/out/aroma.zip
+AROMA_ZIP_TARGET := $(PRODUCT_OUT)/aroma.zip
 $(AROMA_ZIP_TARGET):
 	@echo "----- Making aroma zip installer ------"
-	$(hide) rm -rf $(AROMA_INSTALLER_LOCALPATH)/out/aroma.zip
-	$(hide) rm -rf $(AROMA_INSTALLER_LOCALPATH)/assets/META-INF/com/google/android/update-binary
-	$(hide) cp $(AROMA_INSTALLER_LOCALPATH)/out/aroma_installer $(AROMA_INSTALLER_LOCALPATH)/assets/META-INF/com/google/android/update-binary
-	$(hide) cd $(AROMA_INSTALLER_LOCALPATH)/assets && zip -r9 ../out/aroma.zip .
-	$(hide) rm -rf $(AROMA_INSTALLER_LOCALPATH)/assets/META-INF/com/google/android/update-binary
+	$(hide) rm -rf $(PRODUCT_OUT)/assets
+	$(hide) rm -rf $(PRODUCT_OUT)/aroma.zip
+	$(hide) cp -R $(AROMA_INSTALLER_LOCALPATH)/assets/ $(PRODUCT_OUT)/assets/
+	$(hide) cp $(PRODUCT_OUT)/aroma_installer $(PRODUCT_OUT)/assets/META-INF/com/google/android/update-binary
+	$(hide) pushd $(PRODUCT_OUT)/assets/ && zip -r9 ../aroma.zip . && popd
 	@echo "Made flashable aroma.zip: $@"
 
 .PHONY: aroma_installer_zip
