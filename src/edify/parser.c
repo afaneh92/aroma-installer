@@ -96,11 +96,6 @@
 extern int gLine;
 extern int gColumn;
 
-void yyerror(Expr ** root, int * error_count, const char * s);
-int yyparse(Expr ** root, int * error_count);
-
-
-
 /* Line 189 of yacc.c  */
 #line 106 "parser.c"
 

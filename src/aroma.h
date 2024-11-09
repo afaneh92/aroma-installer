@@ -27,12 +27,15 @@
 //
 // Common Headers, Always Used
 //
+#include <ctype.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <minutf8.h>
 #include <pthread.h>
 
@@ -540,6 +543,7 @@ byte      apng_draw_ex(CANVAS * _b, PNGCANVAS * p, int xpos,            // Draw 
 byte      ag_isfreetype(byte isbig);
 byte      ag_fontready(byte isbig);
 CANVAS  * agc();          // Get Main AROMA Graph Canvas
+byte      ag_blur(CANVAS * d, CANVAS * s, int radius);
 byte      ag_init();      // Init AROMA Graph and Framebuffers
 void      ag_close_thread(); // Close Graph Thread
 void      ag_close();     // Close AROMA Graph and Framebuffers
@@ -687,12 +691,14 @@ void    ev_exit(void);
 int     ev_get(struct input_event * ev, unsigned dont_wait);
 int     ui_wait_key();
 int     ui_key_pressed(int key);
+void    ui_clear_key_queue_ex();
 void    ui_clear_key_queue();
 int     touchX();
 int     touchY();
 int     ontouch();
 void    set_key_pressed(int key, char val);
 int     atmsg();
+void    apng_closefont(PNGFONTS * p);
 
 //
 // AROMA System Library Functions

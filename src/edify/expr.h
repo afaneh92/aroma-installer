@@ -162,4 +162,8 @@ void FreeValue(Value * v);
 int yyErrLine();
 int yyErrCol();
 
+void yyerror(Expr ** root, int * error_count, const char * s);
+int yyparse(Expr ** root, int * error_count);
+struct yy_buffer_state* yy_scan_string(const char* yystr);
+
 #endif  // _EXPRESSION_H

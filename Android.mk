@@ -58,7 +58,6 @@ LOCAL_SRC_FILES += \
     src/main/aroma.c
 
 # MODULE SETTINGS
-LOCAL_MODULE_TARGET_ARCH := arm
 LOCAL_MODULE := aroma_installer
 LOCAL_MODULE_PATH := $(PRODUCT_OUT)
 LOCAL_MODULE_TAGS := eng

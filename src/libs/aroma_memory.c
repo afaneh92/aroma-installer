@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 
