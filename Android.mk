@@ -41,14 +41,6 @@ endif
 LOCAL_SRC_FILES += \
     libs/minutf8/minutf8.c
 
-# MINZIP SOURCE FILES
-LOCAL_SRC_FILES += \
-    libs/minzip/DirUtil.c \
-    libs/minzip/Hash.c \
-    libs/minzip/Inlines.c \
-    libs/minzip/SysUtil.c \
-    libs/minzip/Zip.c
-
 # FREETYPE SOURCE FILES
 LOCAL_SRC_FILES += \
     libs/freetype/autofit/autofit.c \
@@ -118,7 +110,8 @@ LOCAL_FORCE_STATIC_EXECUTABLE := true
 
 # INCLUDES
 LOCAL_C_INCLUDES := \
-    $(AROMA_INSTALLER_LOCALPATH)/include
+    $(AROMA_INSTALLER_LOCALPATH)/include \
+    bootable/recovery
 
 # COMPILER FLAGS
 LOCAL_CFLAGS := -O2
@@ -139,7 +132,7 @@ LOCAL_CFLAGS += -DAROMA_BUILD="\"$(AROMA_BUILD)\""
 LOCAL_CFLAGS += -DAROMA_BUILD_CN="\"$(AROMA_CN)\""
 
 # INCLUDED LIBRARIES
-LOCAL_STATIC_LIBRARIES := libm libc libz
+LOCAL_STATIC_LIBRARIES := libminzip libm libc libz
 
 # Remove Old Build
 ifeq ($(MAKECMDGOALS),$(LOCAL_MODULE))
