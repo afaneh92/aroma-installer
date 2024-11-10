@@ -16,21 +16,6 @@ AROMA_VERSION := 3.00B1
 AROMA_BUILD := $(shell date +%y%m%d%H)
 AROMA_CN := Melati
 
-# ZLIB SOURCE FILES
-LOCAL_SRC_FILES := \
-    libs/zlib/adler32.c \
-    libs/zlib/crc32.c \
-    libs/zlib/infback.c \
-    libs/zlib/inffast.c \
-    libs/zlib/inflate.c \
-    libs/zlib/inftrees.c \
-    libs/zlib/zutil.c
-
-# ZLIB NEON SOURCE
-ifeq ($(AROMA_ARM_NEON),true)
-    LOCAL_SRC_FILES += libs/zlib/inflate_fast_copy_neon.s
-endif
-
 # PNG SOURCE FILES
 LOCAL_SRC_FILES += \
     libs/png/png.c \
@@ -154,7 +139,7 @@ LOCAL_CFLAGS += -DAROMA_BUILD="\"$(AROMA_BUILD)\""
 LOCAL_CFLAGS += -DAROMA_BUILD_CN="\"$(AROMA_CN)\""
 
 # INCLUDED LIBRARIES
-LOCAL_STATIC_LIBRARIES := libm libc
+LOCAL_STATIC_LIBRARIES := libm libc libz
 
 # Remove Old Build
 ifeq ($(MAKECMDGOALS),$(LOCAL_MODULE))
