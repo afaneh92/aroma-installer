@@ -16,27 +16,6 @@ AROMA_VERSION := 3.00B1
 AROMA_BUILD := $(shell date +%y%m%d%H)
 AROMA_CN := Melati
 
-# PNG SOURCE FILES
-LOCAL_SRC_FILES += \
-    libs/png/png.c \
-    libs/png/pngerror.c \
-    libs/png/pnggccrd.c \
-    libs/png/pngget.c \
-    libs/png/pngmem.c \
-    libs/png/pngpread.c \
-    libs/png/pngread.c \
-    libs/png/pngrio.c \
-    libs/png/pngrtran.c \
-    libs/png/pngrutil.c \
-    libs/png/pngset.c \
-    libs/png/pngtrans.c \
-    libs/png/pngvcrd.c
-
-# PNG NEON SOURCE
-ifeq ($(AROMA_ARM_NEON),true)
-    LOCAL_SRC_FILES += libs/png/png_read_filter_row_neon.s
-endif
-
 # MINUTF8 SOURCE FILES
 LOCAL_SRC_FILES += \
     libs/minutf8/minutf8.c
@@ -111,6 +90,7 @@ LOCAL_FORCE_STATIC_EXECUTABLE := true
 # INCLUDES
 LOCAL_C_INCLUDES := \
     $(AROMA_INSTALLER_LOCALPATH)/include \
+    external/png \
     bootable/recovery
 
 # COMPILER FLAGS
@@ -132,7 +112,7 @@ LOCAL_CFLAGS += -DAROMA_BUILD="\"$(AROMA_BUILD)\""
 LOCAL_CFLAGS += -DAROMA_BUILD_CN="\"$(AROMA_CN)\""
 
 # INCLUDED LIBRARIES
-LOCAL_STATIC_LIBRARIES := libminzip libm libc libz
+LOCAL_STATIC_LIBRARIES := libpng libminzip libm libc libz
 
 # Remove Old Build
 ifeq ($(MAKECMDGOALS),$(LOCAL_MODULE))
