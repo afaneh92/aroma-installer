@@ -20,29 +20,6 @@ AROMA_CN := Melati
 LOCAL_SRC_FILES += \
     libs/minutf8/minutf8.c
 
-# FREETYPE SOURCE FILES
-LOCAL_SRC_FILES += \
-    libs/freetype/autofit/autofit.c \
-    libs/freetype/base/basepic.c \
-    libs/freetype/base/ftapi.c \
-    libs/freetype/base/ftbase.c \
-    libs/freetype/base/ftbbox.c \
-    libs/freetype/base/ftbitmap.c \
-    libs/freetype/base/ftglyph.c \
-    libs/freetype/base/ftinit.c \
-    libs/freetype/base/ftpic.c \
-    libs/freetype/base/ftstroke.c \
-    libs/freetype/base/ftsynth.c \
-    libs/freetype/base/ftsystem.c \
-    libs/freetype/cff/cff.c \
-    libs/freetype/pshinter/pshinter.c \
-    libs/freetype/psnames/psnames.c \
-    libs/freetype/raster/raster.c \
-    libs/freetype/sfnt/sfnt.c \
-    libs/freetype/smooth/smooth.c \
-    libs/freetype/truetype/truetype.c \
-    libs/freetype/base/ftlcdfil.c
-
 # EDIFY PARSER SOURCE FILES
 LOCAL_SRC_FILES += \
     src/edify/expr.c \
@@ -89,7 +66,8 @@ LOCAL_FORCE_STATIC_EXECUTABLE := true
 
 # INCLUDES
 LOCAL_C_INCLUDES := \
-    $(AROMA_INSTALLER_LOCALPATH)/include \
+    $(AROMA_INSTALLER_LOCALPATH)/libs/minutf8 \
+    external/freetype/include \
     external/png \
     bootable/recovery
 
@@ -112,7 +90,7 @@ LOCAL_CFLAGS += -DAROMA_BUILD="\"$(AROMA_BUILD)\""
 LOCAL_CFLAGS += -DAROMA_BUILD_CN="\"$(AROMA_CN)\""
 
 # INCLUDED LIBRARIES
-LOCAL_STATIC_LIBRARIES := libpng libminzip libm libc libz
+LOCAL_STATIC_LIBRARIES := libpng libminzip libft2_aroma_static libm libc libz
 
 # Remove Old Build
 ifeq ($(MAKECMDGOALS),$(LOCAL_MODULE))
@@ -121,6 +99,9 @@ ifeq ($(MAKECMDGOALS),$(LOCAL_MODULE))
 endif
 
 include $(BUILD_EXECUTABLE)
+
+# freetype
+include $(AROMA_INSTALLER_LOCALPATH)/libs/freetype/Android.mk
 
 include $(CLEAR_VARS)
 
