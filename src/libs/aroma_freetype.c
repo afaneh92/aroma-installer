@@ -21,16 +21,15 @@
  *
  */
 
-#include "../aroma.h"
+#include <aroma.h>
+
 #include FT_LCD_FILTER_H
 #include FT_BITMAP_H
 #include FT_OUTLINE_H
 
-
 /*****************************[ GLOBAL VARIABLES ]*****************************/
 static FT_Library             aft_lib;            // Freetype Library
 static byte                   aft_initialized = 0; // Is Library Initialized
-static byte                   aft_locked = 0;     // On Lock
 static AFTFAMILY              aft_big;            // Big Font Family
 static AFTFAMILY              aft_small;          // Small Font Family
 
@@ -369,7 +368,7 @@ byte aft_load(const char * source_name, int size, byte isbig, char * relativeto)
   int i = 0;
   int c = 0;
   FT_Face ftfaces[10];
-  char  * ftmem[10];
+  unsigned char * ftmem[10];
   
   for (i = 0; i < count; i++) {
     if (strlen(zpaths[i]) > 0) {
@@ -378,9 +377,9 @@ byte aft_load(const char * source_name, int size, byte isbig, char * relativeto)
       AZMEM mem;
       
       if (az_readmem(&mem, zpath, 1)) {
-        if (FT_New_Memory_Face(aft_lib, mem.data, mem.sz, 0, &ftfaces[c]) == 0) {
+        if (FT_New_Memory_Face(aft_lib, (unsigned char*)mem.data, mem.sz, 0, &ftfaces[c]) == 0) {
           if (FT_Set_Pixel_Sizes(ftfaces[c], 0, m_p) == 0) {
-            ftmem[c] = mem.data;
+            ftmem[c] = (unsigned char*)mem.data;
             c++;
           }
           else {
@@ -684,10 +683,9 @@ byte aft_drawfont(CANVAS * _b, byte isbig, int fpos, int xpos, int ypos, color c
   //-- Draw
   if (lcd) {
     int xx, yy;
-    int fhalf = ceil(((float) fh) / 2);
     int bmp_w = bit->bitmap.width / 3;
     
-    for (yy = 0; yy < bit->bitmap.rows; yy++) {
+    for (yy = 0; yy < (int)bit->bitmap.rows; yy++) {
       for (xx = 0; xx < bmp_w; xx++) {
         byte ar = bit->bitmap.buffer[ (yy * bit->bitmap.pitch) + xx * 3];
         byte ag = bit->bitmap.buffer[ (yy * bit->bitmap.pitch) + xx * 3 + 1];
@@ -707,10 +705,9 @@ byte aft_drawfont(CANVAS * _b, byte isbig, int fpos, int xpos, int ypos, color c
   }
   else {
     int xx, yy;
-    int fhalf = ceil(((float) fh) / 2);
     int bmp_w = bit->bitmap.width;
     
-    for (yy = 0; yy < bit->bitmap.rows; yy++) {
+    for (yy = 0; yy < (int)bit->bitmap.rows; yy++) {
       for (xx = 0; xx < bmp_w; xx++) {
         byte a = bit->bitmap.buffer[ (yy * bit->bitmap.pitch) + xx];
         

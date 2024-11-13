@@ -26,7 +26,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "../aroma.h"
+#include <aroma.h>
 
 /* Micro Sleep */
 void aSleep(long ms) {
@@ -49,7 +49,8 @@ byte file_exists(const char * file) {
 
 //-- COPY FILE
 byte alib_copy(char * src, char * dst) {
-  int      iFd, oFd, oFlags;
+  int iFd, oFlags;
+  int oFd = 0;
   mode_t   fPerm;
   ssize_t  numRead;
   char     buf[1024];
@@ -428,7 +429,7 @@ byte akinetic_uphandler(AKINETIC * p, int mouseY) {
 int akinetic_fling(AKINETIC * p) {
   p->velocity = p->velocity * AKINETIC_DAMPERING;
   
-  if (abs(p->velocity) < 0.1) {
+  if (fabs(p->velocity) < 0.1) {
     return 0;
   }
   
@@ -437,7 +438,7 @@ int akinetic_fling(AKINETIC * p) {
 int akinetic_fling_dampered(AKINETIC * p, float dampersz) {
   p->velocity = p->velocity * dampersz;
   
-  if (abs(p->velocity) < 0.1) {
+  if (fabs(p->velocity) < 0.1) {
     return 0;
   }
   

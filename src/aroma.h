@@ -175,7 +175,7 @@ typedef struct {
 //
 typedef struct {
   int sz;         // Data Size
-  byte * data;    // Data
+  char * data;    // Data
 } AZMEM;
 
 //
@@ -438,7 +438,6 @@ typedef struct {
 FILE   *  apipe();        // Recovery pipe to communicate the command
 byte      aui_start();    // Start AROMA UI
 char   *  aui_readfromfs(char * name);
-char   *  aui_readfromzip(char * name);
 char   *  getArgv(int id);
 void a_reboot(byte rtype, char * type);
 
@@ -681,7 +680,7 @@ void    atouch_set_calibrate(float dx, int ax, float dy, int ay);
 void    atouch_matrix_calibrate(AW_CALIBMATRIXP matrix);
 */
 int     atouch_wait(ATEV * atev);
-int     atouch_wait_ex(ATEV * atev, byte calibratingtouch);
+int     atouch_wait_ex(ATEV * atev);
 byte    atouch_send_message(dword msg);
 void    set_vibrate_rate(byte rate);
 int     vibrate(int timeout_ms);

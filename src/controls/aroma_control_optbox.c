@@ -20,7 +20,8 @@
  * AROMA UI: Selectbox List Window Control
  *
  */
-#include "../aroma.h"
+
+#include <aroma.h>
 
 /***************************[ OPTION BOX ]**************************/
 #define ACOPT_MAX_GROUP   64

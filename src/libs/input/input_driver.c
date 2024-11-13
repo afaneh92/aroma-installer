@@ -133,13 +133,13 @@ typedef struct {
  */
 void INDR_release(AINPUTP me);
 byte INDR_getinput(AINPUTP me, AINPUT_EVENTP dest_ev);
-byte INDR_init_device(INDR_INTERNALP mi, int fd, INDR_DEVICEP dev);
+byte INDR_init_device(int fd, INDR_DEVICEP dev);
 
 /*
  * Function : Check Blacklisted Devices
  *
  */
-byte INDR_blacklist(char * name) {
+byte INDR_blacklist() {
   /* Not Blacklisted */
   return 0;
 }
@@ -199,7 +199,7 @@ byte INDR_init(AINPUTP me) {
       snprintf(mi->dev[mi->n].file, 10, "%s", de->d_name);
       
       /* Load virtualkeys if there are any */
-      if (INDR_init_device(mi, fd, &mi->dev[mi->n])) {
+      if (INDR_init_device(fd, &mi->dev[mi->n])) {
         /* Dump Device Information */
         INDR_dumpdev(&mi->dev[mi->n]);
         /* Set Pooling Data and Monitor it */
@@ -379,7 +379,7 @@ byte INDR_getdevclass(int fd) {
  * Function : Init Device
  *
  */
-byte INDR_init_device(INDR_INTERNALP mi, int fd, INDR_DEVICEP dev) {
+byte INDR_init_device(int fd, INDR_DEVICEP dev) {
   /* Virtual Key Path */
   char    vk_path[PATH_MAX] = "/sys/board_properties/virtualkeys.";
   char  * ts = NULL;
@@ -393,7 +393,7 @@ byte INDR_init_device(INDR_INTERNALP mi, int fd, INDR_DEVICEP dev) {
   }
   
   /* Blacklisted Devices */
-  if (INDR_blacklist(dev->name)) {
+  if (INDR_blacklist()) {
     return 0;
   }
   
@@ -511,7 +511,7 @@ byte INDR_translate(AINPUTP me, INDR_DEVICEP dev,
   }
   else if (dev->devclass & INDR_DEVCLASS_KEYBOARD) {
     /* It's Key Device - input_translate/translate_key.c */
-    return INDR_translate_keyboard(me, dev, dest_ev, ev);
+    return INDR_translate_keyboard(dest_ev, ev);
   }
   
   /* Don't Process It */

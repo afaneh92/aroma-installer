@@ -20,7 +20,8 @@
  * AROMA UI: Textbox Window Control
  *
  */
-#include "../aroma.h"
+
+#include <aroma.h>
 
 /***************************[ TEXTBOX ]**************************/
 typedef struct {

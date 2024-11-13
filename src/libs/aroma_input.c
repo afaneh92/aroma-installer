@@ -28,7 +28,7 @@
 #include <sys/poll.h>
 #include <linux/input.h>
 #include <pthread.h>
-#include "../aroma.h"
+#include <aroma.h>
 
 //-- Input Device
 #include "input/input_device.c"
@@ -195,7 +195,7 @@ void ev_input_callback_(struct input_event * ev) {
 
 byte touch_move_sent = 0;
 //-- INPUT THREAD
-static void * ev_input_thread(void * cookie) {
+static void * ev_input_thread() {
   //-- Loop for Input
   while (evthread_active) {
     AINPUT_EVENT e;
@@ -314,10 +314,10 @@ int ui_wait_key() {
 
 //-- AROMA Input Handler
 int atouch_wait(ATEV * atev) {
-  return atouch_wait_ex(atev, 0);
+  return atouch_wait_ex(atev);
 }
 static int volume_down_pressed = 0;
-int atouch_wait_ex(ATEV * atev, byte calibratingtouch) {
+int atouch_wait_ex(ATEV * atev) {
   atev->x = -1;
   atev->y = -1;
   

@@ -20,12 +20,6 @@ AROMA_CN := Melati
 LOCAL_SRC_FILES += \
     libs/minutf8/minutf8.c
 
-# EDIFY PARSER SOURCE FILES
-LOCAL_SRC_FILES += \
-    src/edify/expr.c \
-    src/edify/lex.yy.c \
-    src/edify/parser.c
-
 # AROMA CONTROLS SOURCE FILES
 LOCAL_SRC_FILES += \
     src/controls/aroma_controls.c \
@@ -66,7 +60,9 @@ LOCAL_FORCE_STATIC_EXECUTABLE := true
 # INCLUDES
 LOCAL_C_INCLUDES := \
     $(AROMA_INSTALLER_LOCALPATH)/libs/minutf8 \
+    $(AROMA_INSTALLER_LOCALPATH)/src \
     external/freetype/include \
+    external/selinux/libselinux/include \
     external/png \
     bootable/recovery
 
@@ -89,18 +85,19 @@ LOCAL_CFLAGS += -DAROMA_BUILD="\"$(AROMA_BUILD)\""
 LOCAL_CFLAGS += -DAROMA_BUILD_CN="\"$(AROMA_CN)\""
 
 # INCLUDED LIBRARIES
-LOCAL_STATIC_LIBRARIES := libpng libminzip libft2_aroma_static libm libc libz
+LOCAL_STATIC_LIBRARIES := libpng libminzip libft2_aroma_static libedify_aroma libm libc libz
 
 # Remove Old Build
-ifeq ($(MAKECMDGOALS),$(LOCAL_MODULE))
-    $(shell rm -rf $(PRODUCT_OUT)/obj/EXECUTABLES/$(LOCAL_MODULE)_intermediates)
-    $(shell rm -rf $(PRODUCT_OUT)/aroma.zip)
-endif
+$(shell rm -rf $(PRODUCT_OUT)/obj/EXECUTABLES/$(LOCAL_MODULE)_intermediates)
+$(shell rm -rf $(PRODUCT_OUT)/aroma.zip)
 
 include $(BUILD_EXECUTABLE)
 
 # freetype
 include $(AROMA_INSTALLER_LOCALPATH)/libs/freetype/Android.mk
+
+# edify
+include $(AROMA_INSTALLER_LOCALPATH)/libs/edify/Android.mk
 
 include $(CLEAR_VARS)
 

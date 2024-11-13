@@ -20,7 +20,8 @@
  * AROMA UI: Checkbox Optbox Hybrid List Window Control
  *
  */
-#include "../aroma.h"
+
+#include <aroma.h>
 
 #define ACCHKOPT_MAX_GROUP   64
 

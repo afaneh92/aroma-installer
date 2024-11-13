@@ -20,8 +20,9 @@
  * AROMA UI: Main AROMA UI Window
  *
  */
+
 #include <sched.h>
-#include "../aroma.h"
+#include <aroma.h>
 
 /***************************[ GLOBAL VARIABLES ]**************************/
 static AC_CONFIG acfg_var;
@@ -525,7 +526,6 @@ void aw_show_ex2(AWINDOWP win, byte anitype, int x, int pos, int w, int h, ACONT
       CANVAS cbg;
       ag_canvas(&cbg, agw(), agh());
       ag_draw(&cbg, agc(), 0, 0);
-      int xc = w / 2;
       int yc = h / 2;
       int i;
       CANVAS * tmpb = (CANVAS *) malloc(sizeof(CANVAS) * fadesz);
@@ -567,7 +567,6 @@ void aw_show_ex2(AWINDOWP win, byte anitype, int x, int pos, int w, int h, ACONT
       CANVAS cbg;
       ag_canvas(&cbg, agw(), agh());
       ag_draw(&cbg, agc(), 0, 0);
-      int xc = w / 2;
       int yc = h / 2;
       int i;
       CANVAS * tmpb = (CANVAS *) malloc(sizeof(CANVAS) * fadesz);
@@ -1038,10 +1037,7 @@ void aw_textdialog(AWINDOWP parent, char * titlev, char * text, char * ok_text) 
       vpadB = winv.b;
     }
   }
-  
-  byte imgE = 0;
-  int imgW = 0;
-  int imgH = 0;
+
   int txtH    = agh() / 2;
   int infH    = txtH;
   //-- Calculate Window Size & Position
@@ -1387,12 +1383,15 @@ byte aw_confirm(AWINDOWP parent, char * titlev, char * textv, char * img, char *
   aw_unmaskparent(parent, tmpc, maskc, winX - 1, winY - 1, winW + 2, winH + 2);
   return res;
 }
+/*
 void aw_help_dialog(AWINDOWP parent) {
 }
+*/
+/*
 byte aw_calibdraw(CANVAS * c,
                   int id, int * xpos, int * ypos, int * xtch, int * ytch) {
   return 0;
-  /*
+
   ag_draw(agc(), c, 0, 0);
   // usleep(500000);
   int sz = agdp() * 10;
@@ -1696,12 +1695,13 @@ byte aw_calibdraw(CANVAS * c,
   
   ag_ccanvas(&bg);
   return res;
-  */
 }
+*/
 
+/*
 byte aw_calibmatrix(AW_CALIBPOINTP displayPtr, AW_CALIBPOINTP screenPtr, AW_CALIBMATRIXP matrixPtr) {
   return 0;
-  /*
+
   byte retValue = 1;
   matrixPtr->Divider = ((screenPtr[0].x - screenPtr[2].x) * (screenPtr[1].y - screenPtr[2].y)) -
                        ((screenPtr[1].x - screenPtr[2].x) * (screenPtr[0].y - screenPtr[2].y)) ;
@@ -1726,8 +1726,8 @@ byte aw_calibmatrix(AW_CALIBPOINTP displayPtr, AW_CALIBPOINTP screenPtr, AW_CALI
                     (screenPtr[1].x * displayPtr[0].y - screenPtr[0].x * displayPtr[1].y) * screenPtr[2].y ;
   }
   
-  return retValue; */
-} /* end of setCalibrationMatrix() */
+  return retValue;
+} */ /* end of setCalibrationMatrix() */
 
 byte aw_calibtools(AWINDOWP parent) {
   aw_alert(parent,
@@ -1737,9 +1737,10 @@ byte aw_calibtools(AWINDOWP parent) {
            NULL);
   return 1;
 }
+/*
 byte aw_calibtools_(AWINDOWP parent) {
   return 0;
-  /*
+
   int USE_HACK = aw_confirm(
                    parent,
                    "Use alternative touch",
@@ -1860,8 +1861,9 @@ byte aw_calibtools_(AWINDOWP parent) {
     atouch_restorecalibrate();
   }
   
-  return isvalid;*/
+  return isvalid;
 }
+*/
 void aw_about_dialog(AWINDOWP parent) {
   char unchkmsg[512];
   snprintf(unchkmsg, 512,
@@ -1972,7 +1974,7 @@ byte aw_showmenu(AWINDOWP parent) {
     aw_about_dialog(parent);
   }
   else if (res == 2) {
-    aw_help_dialog(parent);
+    //aw_help_dialog(parent);
   }
   else if (res == 3) {
     aw_calibtools(parent);

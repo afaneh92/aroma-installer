@@ -21,7 +21,7 @@
  *
  */
 
-#include "../aroma.h"
+#include <aroma.h>
 
 AARRAYP alang = NULL;
 
@@ -150,7 +150,6 @@ byte alang_load(char * z) {
   }
   
   byte state  = 0;
-  byte slash  = 0;
   char c      = 0;
   char pc     = 0;
   char * key  = NULL;

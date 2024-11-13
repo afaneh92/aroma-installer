@@ -22,7 +22,7 @@
  */
 #include <sys/reboot.h>
 #include <sys/syscall.h>
-#include "../aroma.h"
+#include <aroma.h>
 
 //*
 //* GLOBAL UI VARIABLES

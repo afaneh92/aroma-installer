@@ -24,7 +24,7 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <errno.h>
-#include "../aroma.h"
+#include <aroma.h>
 
 static byte      ai_run              = 0;
 static int       ai_progani_pos      = 0;
@@ -72,7 +72,7 @@ void ai_rebuildtxt(int cx, int cy, int cw, int ch) {
     goto done;
   }
   
-  if (fread(buffer, 1, st.st_size, f) != st.st_size) {
+  if (fread(buffer, 1, (size_t)st.st_size, f) != (size_t)st.st_size) {
     fclose(f);
     goto done;
   }
@@ -137,7 +137,7 @@ char * ai_fixlen(char * str, char * addstr) {
   
   return strdup(allstr);
 }
-void ai_actionsavelog(char * name) {
+void ai_actionsavelog() {
 }
 void ai_dump_logs() {
   char dumpname[256];
@@ -183,7 +183,7 @@ void ai_dump_logs() {
     }
   }
 }
-static void * aroma_install_package(void * cookie) {
+static void * aroma_install_package() {
   //-- Extract update-binary
   int res = az_extract(AROMA_ORIB, AROMA_TMP "/update-binary");
   
@@ -372,7 +372,7 @@ static void * aroma_install_package(void * cookie) {
   aw_post(aw_msg(15, 0, 0, 0));
   return NULL;
 }
-static void * ac_progressthread(void * cookie) {
+static void * ac_progressthread() {
   //-- COLORS
   dword hl1 = ag_calchighlight(acfg()->selectbg, acfg()->selectbg_g);
   byte sg_r = ag_r(acfg()->progressglow);
@@ -386,7 +386,6 @@ static void * ac_progressthread(void * cookie) {
     //-- CALCULATE PROGRESS BY TIME
     if (ai_progress_fract_n < 0) {
       long curtick  = alib_tick();
-      int  targetc  = abs(ai_progress_fract_n);
       long  tickdiff = curtick - ai_progress_fract_l;
       
       if (tickdiff > 0) {
@@ -478,7 +477,6 @@ static void * ac_progressthread(void * cookie) {
     int hpos = prog_g / 2;
     int vpos = ((prog_g + hpos) * x) / 60;
     int hhpos = prog_g / 4;
-    int hph  = ai_prog_h / 2;
     int xx;
     int  sgmp = agdp() * 40;
     
@@ -542,7 +540,6 @@ static void * ac_progressthread(void * cookie) {
 }
 void aroma_init_install(
   CANVAS * bg,
-  int cx, int cy, int cw, int ch,
   int px, int py, int pw, int ph
 ) {
   //-- Calculate Progress Location&Size
@@ -590,7 +587,7 @@ int aroma_start_install(
 ) {
   //-- Save Canvases
   ai_bg = bg;
-  aroma_init_install(bg, cx, cy, cw, ch, px, py + (agdp() * 4), pw, ph);
+  aroma_init_install(bg, px, py + (agdp() * 4), pw, ph);
   AWINDOWP hWin     = aw(bg);
   ai_win            = hWin;
   ai_cv             = &hWin->c;

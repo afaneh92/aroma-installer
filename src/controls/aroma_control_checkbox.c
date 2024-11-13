@@ -20,7 +20,8 @@
  * AROMA UI: Checkbox List Window Control
  *
  */
-#include "../aroma.h"
+
+#include <aroma.h>
 
 #define ACCHK_MAX_GROUP   64
 

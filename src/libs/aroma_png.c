@@ -21,14 +21,14 @@
  *
  */
 #include <png.h>
-#include "../aroma.h"
+#include <aroma.h>
 
 /*********************************[ STRUCTRES ]********************************/
 //-- READER STRUCTURE
 typedef struct  {
-  byte * data;
-  int pos;
-  int len;
+  char * data;
+  png_size_t pos;
+  png_size_t len;
 } APNG_DATA;
 
 /*********************************[ FUNCTIONS ]********************************/
@@ -271,7 +271,6 @@ byte apng_draw_ex(CANVAS * _b, PNGCANVAS * p, int xpos, int ypos, int sxpos, int
     
     for (x = sxpos; (x < sxpos + sw) && (x < p->w) && ((x - sxpos) + xpos < _b->w); x++) {
       int sx = y * p->w + x;
-      int qx = ((qy * sw) + (x - sxpos)) * 3;
       byte dr, dg, db;
       
       //-- Get Destination Color
@@ -418,8 +417,6 @@ byte apng_loadfont(PNGFONTS * pngfont, const char * imgname) {
   int row_sz          = (int) png_get_rowbytes(png_ptr, info_ptr);
   png_bytep row_data  = (png_bytep) malloc(row_sz);
   int y;
-  int f_x   = 0;
-  int f_w   = 0;
   int f_p   = 0;
   
   for (y = 0; y < pngfont->h; ++y) {
@@ -502,7 +499,6 @@ byte apng_drawfont(CANVAS * _b, PNGFONTS * p, byte fpos, int xpos, int ypos, col
   for (y = 0; (y < p->fh) && (y + ypos < _b->h); y++) {
     for (x = 0; (x < fw) && (x + xpos < _b->w); x++) {
       int sx = y * p->w + x + fx;
-      int qx = (y * fw + x) * 3;
       byte a = p->d[sx];
       //-- Save Colors
       byte dr = ag_r(cl);
@@ -804,9 +800,9 @@ byte apng_stretch(CANVAS * _b, PNGCANVAS * p,
     return apng_stretch_(_b, p, dx, dy, wDst, hDst, sx, sy, wSrc, hSrc);
   }
   
-  unsigned int wStepFixed16b, hStepFixed16b, wCoef, hCoef, x, y;
+  unsigned int wStepFixed16b, hStepFixed16b, wCoef, hCoef;
   unsigned int hc1, hc2, wc1, wc2, offsetX, offsetY;
-  int id1, id2, id3, id4, line1, line2;
+  int x, y, id1, id2, id3, id4, line1, line2;
   byte dr, dg, db, da;
   wStepFixed16b = ((wSrc - 1) << 16) / (wDst - 1);
   hStepFixed16b = ((hSrc - 1) << 16) / (hDst - 1);
@@ -898,7 +894,6 @@ byte apng_stretch_(
   }
   
   //-- Quantizer Error Dithering Data Termporary
-  int    ds  = dw * dh;
   int    qz  = dw * 6;
   byte * qe  = malloc(qz);
   memset(qe, 0, qz);
@@ -921,9 +916,6 @@ byte apng_stretch_(
         int   spos = ((ypos + sy) * p->w) + (xpos + sx);
         int   dpx  = x + dx;
         int   dpy  = y + dy;
-        //int   sx = y * p->w + x;
-        // int   qx = ((y * dw) + x) * 3;
-        int   qx = (qp * dw + x) * 3;
         
         //-- Get Destination Color
         if (p->c == 3) {

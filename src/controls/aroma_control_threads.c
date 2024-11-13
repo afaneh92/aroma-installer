@@ -20,7 +20,8 @@
  * AROMA UI: Thread Manager for Window Controls
  *
  */
-#include "../aroma.h"
+
+#include <aroma.h>
 
 /*************************[ SCROLL TO ]**************************/
 typedef struct  {
@@ -276,7 +277,6 @@ static void * ac_flingthread(void * cookie) {
   }
   
   int mz  = akinetic_fling(dt->akin);
-  float vz = 0.0;
   
   while ((mz != 0) && (dt->ctl->win->isActived)) {
     if (dt->ctl->forceNS) {

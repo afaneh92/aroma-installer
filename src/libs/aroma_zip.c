@@ -23,7 +23,7 @@
 
 #include "minzip/Zip.h"
 #include "minzip/SysUtil.h"
-#include "../aroma.h"
+#include <aroma.h>
 
 /*****************************[ GLOBAL VARIABLES ]*****************************/
 static ZipArchive zip;
@@ -64,7 +64,7 @@ byte az_readmem(AZMEM * out, const char * zpath, byte bytesafe) {
   out->data = malloc(out->sz);
   
   //memset(out->data,0,out->sz);
-  if (!mzReadZipEntry(&zip, se, out->data, se->uncompLen)) {
+  if (!mzReadZipEntry(&zip, se, (char *)out->data, se->uncompLen)) {
     free(out->data);
     return 0;
   }

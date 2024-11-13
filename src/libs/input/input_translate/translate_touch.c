@@ -227,7 +227,7 @@ byte INDR_translate_touch(AINPUTP me, INDR_DEVICEP dev,
         /* Reset Virtual Key ID */
         dev->p.vk    = -1;
         /* If on Virtual Key - Send as keyboard event */
-        return INDR_translate_keyboard(me, dev, dest_ev, &key_ev);
+        return INDR_translate_keyboard(dest_ev, &key_ev);
       }
       
       return AINPUT_EV_RET_TOUCH;
@@ -304,7 +304,7 @@ byte INDR_translate_touch(AINPUTP me, INDR_DEVICEP dev,
           /* LOG RAW */
           //ALOGRT("INDR VIRTUALKEY DOWN : [%i,%i] on %ix%ipx\n",i,key_ev.code,xd,yd);
           /* If on Virtual Key - Send as keyboard event */
-          return INDR_translate_keyboard(me, dev, dest_ev, &key_ev);
+          return INDR_translate_keyboard(dest_ev, &key_ev);
         }
       }
       
