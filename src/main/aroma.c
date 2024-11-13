@@ -94,6 +94,7 @@ void a_splash(char * spipe) {
           "ui_print Starting " AROMA_NAME " version " AROMA_VERSION "\n"
           "ui_print\n"
           "ui_print " AROMA_COPY "\n"
+          "ui_print " AROMA_COPY2 "\n"
           "ui_print\n"
           "ui_print\n"
          );

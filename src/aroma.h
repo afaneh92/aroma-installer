@@ -31,6 +31,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <math.h>
 #include <string.h>
 #include <unistd.h>
@@ -48,14 +49,8 @@
 #include <freetype/ftsynth.h>
 #include FT_GLYPH_H
 
-//
-// ARM NEON - Testing Only
-//
-#ifdef __ARM_NEON__
-#include <arm_neon.h>
-#endif
-
 #include "aroma_mem.h"
+#include "aroma_engine.h"
 
 // Defined in build command
 // #define _AROMA_NODEBUG
@@ -69,10 +64,10 @@
 //
 // Common Data Type
 //
-#define byte              unsigned char
-#define dword             unsigned int
-#define word              unsigned short
-#define color             unsigned short
+typedef uint8_t byte;
+typedef uint32_t dword;
+typedef uint16_t word;
+typedef uint16_t color;
 
 //
 // AROMA Main Configurations
@@ -80,7 +75,8 @@
 #define AROMA_BUILD_L     "Bandung - Indonesia"
 #define AROMA_BUILD_A     "<support@amarullz.com>"
 #define AROMA_BUILD_URL   "http://www.amarullz.com/"
-#define AROMA_COPY        "(c) 2013 by amarullz xda-developers"
+#define AROMA_COPY        "(c) 2013-2015 by amarullz.com"
+#define AROMA_COPY2       "(c) 2024 by afaneh92"
 
 //-- Temporary Dir - Move from /tmp/aroma-data to /tmp/aroma symlink to /tmp/aroma-data for backward compatibility
 #define AROMA_SYSTMP      "/tmp"
@@ -544,9 +540,9 @@ byte      ag_fontready(byte isbig);
 CANVAS  * agc();          // Get Main AROMA Graph Canvas
 byte      ag_blur(CANVAS * d, CANVAS * s, int radius);
 byte      ag_init();      // Init AROMA Graph and Framebuffers
-void      ag_close_thread(); // Close Graph Thread
+byte      ag_close_thread(); // Close Graph Thread
 void      ag_close();     // Close AROMA Graph and Framebuffers
-void      ag_changecolorspace(int r, int g, int b, int a); // Change Color Space
+void      ag_changecolorspace(int r, int g, int b, __unused int a); // Change Color Space
 
 void      ag_sync();                        // Sync Main Canvas with Framebuffer
 int       agw();                            // Get Display X Resolution
@@ -613,14 +609,6 @@ byte ag_draw_strecth_ex(
   byte alpha,
   byte withdest
 );
-byte ag_draw_opa(
-  CANVAS * d,
-  CANVAS * s,
-  int dx,
-  int dy,
-  byte alpha,
-  byte withdest
-);
 void ag_dither(byte * qe, int qp, int qx, int dthx, int dthy, int dthw, int dthh, byte r, byte g, byte b);
 color ag_dodither(int x, int y, dword col);
 color ag_dodither_rgb(int x, int y, byte sr, byte sg, byte sb);
@@ -629,7 +617,8 @@ color ag_dodither_rgb(int x, int y, byte sr, byte sg, byte sb);
 // AROMA Color Calculator Functions
 //
 color     ag_subpixelget(CANVAS * _b, int x, int y, color cl, byte l); // Calculate Color Opacity with Canvas Pixel
-color     ag_calculatealpha(color dcl, color scl, byte l);            // Calculate 2 Colors with Opacity
+#define   ag_calculatealpha(d,s,a) libaroma_alpha(d,s,a)              // Calculate 2 Colors with Opacity
+#define   ag_calculatealphaTo32(d,s,a) libaroma_alpha32(d,s,a)
 color     strtocolor(char * c);                                       // Convert String Hex Color #fff,#ffffff to color
 dword     ag_calchighlight(color c1, color c2);
 dword     ag_calcpushlight(color c1, color c2);
