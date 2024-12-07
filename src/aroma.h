@@ -922,30 +922,23 @@ char * acchkopt_getitemiid(ACONTROLP ctl, int index);
 int acchkopt_getselectedindex(ACONTROLP ctl, int group);
 byte acchkopt_itemtype(ACONTROLP ctl, int index);
 
-//**********[ AROMA LOGGING ]**********//
+//**********[ AROMA LOGGING - LIBAROMA STYLE ]**********//
 #define _AROMA_DEBUG_TAG "aroma"
-#ifndef _AROMA_NODEBUG
-#define LOGS(...) fprintf(stdout, _AROMA_DEBUG_TAG "/s: " __VA_ARGS__)
-#define LOGE(...) fprintf(stdout, _AROMA_DEBUG_TAG "/e: " __VA_ARGS__)
-#define LOGW(...) fprintf(stdout, _AROMA_DEBUG_TAG "/w: " __VA_ARGS__)
-#define LOGI(...) fprintf(stdout, _AROMA_DEBUG_TAG "/i: " __VA_ARGS__)
-#define LOGV(...) fprintf(stdout, _AROMA_DEBUG_TAG "/v: " __VA_ARGS__)
-#define LOGD(...) fprintf(stdout, _AROMA_DEBUG_TAG "/d: " __VA_ARGS__)
-#else
-#define LOGS(...) fprintf(stdout, _AROMA_DEBUG_TAG "/s: " __VA_ARGS__)
-#define LOGE(...) fprintf(stdout, _AROMA_DEBUG_TAG "/e: " __VA_ARGS__)
+#define LOGS(...) fprintf(stdout, _AROMA_DEBUG_TAG "[S] " __VA_ARGS__); fprintf(stdout, "\n");
+#define LOGE(...) fprintf(stdout, _AROMA_DEBUG_TAG "[E] " __VA_ARGS__); fprintf(stdout, "\n");
+#define LOGI(...) fprintf(stdout, _AROMA_DEBUG_TAG "[I] " __VA_ARGS__); fprintf(stdout, "\n");
 #ifdef _AROMA_VERBOSE_INFO
-#define LOGW(...) fprintf(stdout, _AROMA_DEBUG_TAG "/w: " __VA_ARGS__)
-#define LOGI(...) fprintf(stdout, _AROMA_DEBUG_TAG "/i: " __VA_ARGS__)
-#define LOGV(...) fprintf(stdout, _AROMA_DEBUG_TAG "/v: " __VA_ARGS__)
-#define LOGD(...) fprintf(stdout, _AROMA_DEBUG_TAG "/d: " __VA_ARGS__)
+#define LOGW(...) fprintf(stdout, _AROMA_DEBUG_TAG "[W] " __VA_ARGS__); fprintf(stdout, "\n");
+#define LOGV(...) fprintf(stdout, _AROMA_DEBUG_TAG "[V] " __VA_ARGS__); fprintf(stdout, "\n");
+#define LOGD(...) fprintf(stdout, _AROMA_DEBUG_TAG "[D] " __VA_ARGS__); fprintf(stdout, "\n");
 #else
-#define LOGW(...) /**/
-#define LOGI(...) /**/
-#define LOGV(...) /**/
-#define LOGD(...) /**/
+#define LOGW(...)
+#define LOGV(...)
+#define LOGD(...)
 #endif
-#endif
+#define LOGT(...)
+#define LOGRT(...)
+
 #define STRINGIFY(x) #x
 #define EXPAND(x) STRINGIFY(x)
 

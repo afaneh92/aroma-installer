@@ -3346,7 +3346,7 @@ Value * AROMA_INCLUDE(const char * name, State * state, int argc, Expr * argv[])
   byte show_log = (func_pos > aparse_startpos);
   
   if (show_log) {
-    LOGS("# INCLUDE SCRIPT (%s)\n", fname);
+    LOGS("# INCLUDE SCRIPT (%s)", fname);
   }
   
   //-- Read From Zip
@@ -3366,7 +3366,7 @@ Value * AROMA_INCLUDE(const char * name, State * state, int argc, Expr * argv[])
       script_data += 3;
       
       if (show_log) {
-        LOGS("  + %s was UTF-8\n", fname);
+        LOGS("  + %s was UTF-8", fname);
       }
     }
   }
@@ -3416,7 +3416,7 @@ Value * AROMA_EVAL(const char * name, State * state, int argc, Expr * argv[]) {
   byte show_log = (func_pos > aparse_startpos);
   
   if (show_log) {
-    LOGS("# EVAL SCRIPT\n");
+    LOGS("# EVAL SCRIPT");
   }
   
   //-- Get Arguments
@@ -3431,7 +3431,7 @@ Value * AROMA_EVAL(const char * name, State * state, int argc, Expr * argv[]) {
       script_data += 3;
       
       if (show_log) {
-        LOGS("  + EVAL SCRIPT was UTF-8\n");
+        LOGS("  + EVAL SCRIPT was UTF-8");
       }
     }
   }
@@ -3574,7 +3574,7 @@ byte aui_start() {
         (script_data[1] == 0xBB) &&
         (script_data[2] == 0xBF)) {
       script_data += 3;
-      LOGS("aroma-config was UTF-8\n");
+      LOGS("aroma-config was UTF-8");
     }
   }
   

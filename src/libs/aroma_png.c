@@ -176,11 +176,11 @@ byte apng_load(PNGCANVAS * pngcanvas, char * imgname) {
          )
         ) || (channels == 1 && color_type == PNG_COLOR_TYPE_PALETTE)
       )) {
-    LOGE("PNG(%s): Not Supported. Only 8 Bit Depth with 3/4 Channel or Pallete.\n", zpath);
+    LOGE("PNG(%s): Not Supported. Only 8 Bit Depth with 3/4 Channel or Pallete.", zpath);
     goto exit;
   }
   
-  LOGI("PNG(%s): %ix%ix%i\n", zpath, width, height, channels);
+  LOGI("PNG(%s): %ix%ix%i", zpath, width, height, channels);
   
   if (color_type == PNG_COLOR_TYPE_PALETTE) {
     png_set_palette_to_rgb(png_ptr);
@@ -332,7 +332,7 @@ byte apng_draw_ex(CANVAS * _b, PNGCANVAS * p, int xpos, int ypos, int sxpos, int
   }
   
   //printf("PNGDRAW: %ix%i on %ix%i\n",p->w,p->h,xpos,ypos);
-  //LOGI("PNGDRAW: %ix%i on %ix%i\n",p->w,p->h,xpos,ypos);
+  //LOGI("PNGDRAW: %ix%i on %ix%i",p->w,p->h,xpos,ypos);
   free(qe);
   return 1;
 }
@@ -401,11 +401,11 @@ byte apng_loadfont(PNGFONTS * pngfont, const char * imgname) {
             &color_type, NULL, NULL, NULL);
   channels = png_get_channels(png_ptr, info_ptr);
   if (!(bit_depth == 8 && (channels == 4 && color_type == PNG_COLOR_TYPE_RGBA))) {
-    LOGE("PNG FONT(%s): Not Supported. Only 8 Bit Depth with 4 Channel.\n", zpath);
+    LOGE("PNG FONT(%s): Not Supported. Only 8 Bit Depth with 4 Channel.", zpath);
     goto exit;
   }
   
-  LOGI("PNG(%s): %ix%ix%i\n", zpath, width, height, channels);
+  LOGI("PNG(%s): %ix%ix%i", zpath, width, height, channels);
   //-- Initializing Canvas
   pngfont->w    = width;
   pngfont->h    = height;
@@ -436,7 +436,7 @@ byte apng_loadfont(PNGFONTS * pngfont, const char * imgname) {
             
             if (f_p > 0) {
               pngfont->fw[f_p - 1] = min(x - pngfont->fx[f_p - 1], 255);
-              //LOGI("Font(%i): x = %i - w = %i\n",f_p-1,pngfont->fx[f_p-1],pngfont->fw[f_p-1]);
+              //LOGI("Font(%i): x = %i - w = %i",f_p-1,pngfont->fx[f_p-1],pngfont->fw[f_p-1]);
             }
             
             f_p++;

@@ -115,13 +115,13 @@ void a_init_all() {
 void a_release_all() {
   //-- Release All
   ag_closefonts();  //-- Release Fonts
-  LOGS("Font Released\n");
+  LOGS("Font Released");
   ev_exit();        //-- Release Input Engine
-  LOGS("Input Released\n");
+  LOGS("Input Released");
   az_close();       //-- Release Zip Handler
-  LOGS("Archive Released\n");
+  LOGS("Archive Released");
   ag_close();       //-- Release Graph Engine
-  LOGS("Graph Released\n");
+  LOGS("Graph Released");
 }
 
 
@@ -135,7 +135,7 @@ int main(int argc, char ** argv) {
 #endif
   int retval = 1;
   parent_pid = getppid();
-  LOGS("Initializing\n");
+  LOGS("Initializing");
   //-- Normal Updater Sequences
   setbuf(stdout, NULL);
   setbuf(stderr, NULL);
@@ -144,19 +144,16 @@ int main(int argc, char ** argv) {
   unlink(AROMA_TMP_S);
   create_directory(AROMA_TMP);
   symlink(AROMA_TMP, AROMA_TMP_S);
-  //-- Initializing Header
-  printf("Starting " AROMA_NAME " version " AROMA_VERSION "\n"
-         "     " AROMA_COPY "\n");
          
   //-- Check Arguments
   if (argc != 4) {
-    LOGE("Unexpected Number of Arguments (%d)\n", argc);
+    LOGE("Unexpected Number of Arguments (%d)", argc);
     return 1;
   }
   
   //-- Check CWM Version
   if ((argv[1][0] != '1' && argv[1][0] != '2' && argv[1][0] != '3') || argv[1][1] != '\0') {
-    LOGE("Wrong Updater Binary API!!! Expected 1, 2, or 3, But got %s\n", argv[1]);
+    LOGE("Wrong Updater Binary API!!! Expected 1, 2, or 3, But got %s", argv[1]);
     return 2;
   }
   
@@ -165,24 +162,24 @@ int main(int argc, char ** argv) {
   
   //-- Mute Parent Thread
   if (parent_pid) {
-    LOGS("Mute Parent\n");
+    LOGS("Mute Parent");
     aroma_memory_parentpid(parent_pid);
     kill(parent_pid, 19);
   }
   
   //-- Save to Argument
-  LOGS("Saving Arguments\n");
+  LOGS("Saving Arguments");
   snprintf(currArgv[0], 255, "%s", argv[1]);
   snprintf(currArgv[1], 255, "%s", argv[3]);
   //-- Init Zip
-  LOGS("Open Archive\n");
+  LOGS("Open Archive");
   
   if (az_init(argv[3])) {
     //-- Initializing All Resources
-    LOGS("Initializing Resource\n");
+    LOGS("Initializing Resource");
     a_init_all();
     //-- Starting AROMA Installer UI
-    LOGS("Starting Interface\n");
+    LOGS("Starting Interface");
     
     if (aui_start()) {
       fprintf(apipe(), "ui_print " AROMA_NAME " Finished...\nui_print\nui_print\n");
@@ -190,33 +187,33 @@ int main(int argc, char ** argv) {
     }
     
     //-- Close Graph Thread
-    LOGS("Close Graph Thread\n");
+    LOGS("Close Graph Thread");
     ag_close_thread();
     //-- Wait Until Clean Up
     usleep(200000);
     //-- Release All Resource
-    LOGS("Starting Release\n");
+    LOGS("Starting Release");
     a_release_all();
   }
   else {
-    LOGE("Cannot Open Archive\n");
+    LOGE("Cannot Open Archive");
   }
   
   //-- Unmute Parent
   if (parent_pid) {
-    LOGS("Unmute Parent\n");
+    LOGS("Unmute Parent");
     kill(parent_pid, 18);
   }
   
   //-- REMOVE AROMA TEMPORARY
-  LOGS("Cleanup Temporary\n");
+  LOGS("Cleanup Temporary");
   unlink(AROMA_TMP_S);
   remove_directory(AROMA_TMP);
   //-- Check Reboot Request
-  LOGS("Check For Reboot\n");
+  LOGS("Check For Reboot");
   a_check_reboot();
   //-- Cleanup PIPE
-  LOGS("Closing Recovery Pipe\n");
+  LOGS("Closing Recovery Pipe");
   fclose(acmd_pipe);
 #ifndef _AROMA_NODEBUG
   aroma_dump_malloc();

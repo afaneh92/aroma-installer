@@ -33,7 +33,7 @@ static ZipArchive zip;
 byte az_init(const char * filename) {
   MemMapping map;
   if (sysMapFile(filename, &map) != 0) {
-    LOGE("failed to map file\n");
+    LOGE("failed to map file");
     return -1;
   }
 

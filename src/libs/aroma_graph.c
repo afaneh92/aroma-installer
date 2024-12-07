@@ -414,7 +414,7 @@ byte ag_init() {
     ag_isrun = 1;
     pthread_create(&ag_pthread, NULL, ag_thread, NULL);
     //-- Init FreeType
-    LOGS("Opening Freetype\n");
+    LOGS("Opening Freetype");
     aft_open();
     return 1;
   }
@@ -704,7 +704,7 @@ void ag_close() {
   close(ag_fb);
   ag_fb = 0;
   //-- Cleanup Freetype
-  LOGS("Closing Freetype\n");
+  LOGS("Closing Freetype");
   aft_close();
 }
 
@@ -3211,7 +3211,7 @@ void ag_takescreenshoot() {
     fwrite(&bmpi, 1, sizeof(BMPI), fp);
     fwrite(ag_c.data, 1, ag_c.sz, fp);
     fclose(fp);
-    LOGS("Save on \"%s\" %i Bytes\n", filename, bmph.filesize);
+    LOGS("Save on \"%s\" %i Bytes", filename, bmph.filesize);
   }
   
 #pragma pack(pop)

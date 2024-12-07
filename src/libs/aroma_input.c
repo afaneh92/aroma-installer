@@ -425,7 +425,7 @@ int atouch_wait_ex(ATEV * atev) {
             if (volume_down_pressed) {
               if (atev->d) {
                 vibrate(30);
-                LOGS("PRINT SCREEN...\n");
+                LOGS("PRINT SCREEN...");
                 ag_takescreenshoot();
                 usleep(200000);
                 vibrate(30);
@@ -457,7 +457,7 @@ int atouch_wait_ex(ATEV * atev) {
             if (volume_down_pressed) {
               if (atev->d) {
                 vibrate(30);
-                LOGS("PRINT SCREEN...\n");
+                LOGS("PRINT SCREEN...");
                 ag_takescreenshoot();
                 usleep(200000);
                 vibrate(30);

@@ -415,12 +415,12 @@ byte aft_load(const char * source_name, int size, byte isbig, char * relativeto)
     
     m->facen = c;
     m->init  = 1;
-    LOGS("(%i) Freetype fonts loaded as Font Family\n", c);
+    LOGS("(%i) Freetype fonts loaded as Font Family", c);
     aft_unlock();
     return 1;
   }
   
-  LOGS("No Freetype fonts loaded. Using png font.\n");
+  LOGS("No Freetype fonts loaded. Using png font.");
   return 0;
 }
 

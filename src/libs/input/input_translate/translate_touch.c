@@ -76,7 +76,7 @@ byte INDR_translate_touch(AINPUTP me, INDR_DEVICEP dev,
   INDR_INTERNALP mi = (INDR_INTERNALP)
                       me->internal;
   /* DUMP RAW EVENTS */
-  //ALOGRT("INDR RAW TOUCH: T=%i, C=%i, V=%i",ev->type,ev->code,ev->value);
+  //LOGRT("INDR RAW TOUCH: T=%i, C=%i, V=%i",ev->type,ev->code,ev->value);
   static int MT_TRACKING_IS_UNTOUCHED = 0;
   static int TOUCH_RELEASE_NEXTSYN = 0;
   
@@ -179,7 +179,7 @@ byte INDR_translate_touch(AINPUTP me, INDR_DEVICEP dev,
       /* Sometime It Reported Twice, So Check This Value */
       if ((dev->p.tx == -1) || (dev->p.tx == -1)) {
         /* LOG RAW */
-        //ALOGRT("INDR Got Double EV_SYN-UP Event. Ignore It.");
+        //LOGRT("INDR Got Double EV_SYN-UP Event. Ignore It.");
         dev->p.state    &= ~INDR_POS_ST_DOWNED;
         dev->p.state    &= ~INDR_POS_ST_RLS_NEXT;
         goto return_clear_sync;
@@ -217,11 +217,11 @@ byte INDR_translate_touch(AINPUTP me, INDR_DEVICEP dev,
           /* It Still On Virtual Key. Set As UP */
           key_ev.value = 0;
           /* LOG RAW */
-          //ALOGRT("INDR VIRTUALKEY UP : [%i,%i] on %ix%ipx\n",dev->p.vk,key_ev.code,xd,yd);
+          //LOGRT("INDR VIRTUALKEY UP : [%i,%i] on %ix%ipx",dev->p.vk,key_ev.code,xd,yd);
         }
         else {
           /* LOG RAW */
-          //ALOGRT("INDR VIRTUALKEY CANCEL : [%i,%i] on %ix%ipx\n",dev->p.vk,key_ev.code,xd,yd);
+          //LOGRT("INDR VIRTUALKEY CANCEL : [%i,%i] on %ix%ipx",dev->p.vk,key_ev.code,xd,yd);
         }
         
         /* Reset Virtual Key ID */
@@ -302,7 +302,7 @@ byte INDR_translate_touch(AINPUTP me, INDR_DEVICEP dev,
           /* Key Event State = Down */
           key_ev.value = 1;
           /* LOG RAW */
-          //ALOGRT("INDR VIRTUALKEY DOWN : [%i,%i] on %ix%ipx\n",i,key_ev.code,xd,yd);
+          //LOGRT("INDR VIRTUALKEY DOWN : [%i,%i] on %ix%ipx",i,key_ev.code,xd,yd);
           /* If on Virtual Key - Send as keyboard event */
           return INDR_translate_keyboard(dest_ev, &key_ev);
         }

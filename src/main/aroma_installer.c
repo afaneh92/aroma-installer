@@ -210,7 +210,7 @@ static void * aroma_install_package() {
   az_close();
   //-- Start Installer
   pid_t pid = fork();
-  // LOGS("Installer: Execute\n");
+  // LOGS("Installer: Execute");
   
   if (pid == 0) {
     setenv("UPDATE_PACKAGE",  getArgv(1), 1);
@@ -227,7 +227,7 @@ static void * aroma_install_package() {
     _exit(-1);
   }
   
-  // LOGS("Installer: Initializing PIPE\n");
+  // LOGS("Installer: Initializing PIPE");
   close(pipefd[1]);
   //-- Set New Progress Text
   snprintf(ai_progress_text, 63, "Installing...");
@@ -248,7 +248,7 @@ static void * aroma_install_package() {
   //-- Start Reading Feedback
   char  buffer[1024];
   FILE * from_child = fdopen(pipefd[0], "r");
-  // LOGS("Installer: Get Events\n");
+  // LOGS("Installer: Get Events");
   
   while (fgets(buffer, sizeof(buffer), from_child) != NULL) {
     char * bufall  = strdup(buffer);
@@ -340,15 +340,15 @@ static void * aroma_install_package() {
       fprintf(fp, "    %s\n", str);
     }
     
-    // LOGS("Installer: Command(%s)\n", command);
+    // LOGS("Installer: Command(%s)", command);
     free(bufall);
   }
   
-  // LOGS("Installer: Exited - Close Process Handler\n");
+  // LOGS("Installer: Exited - Close Process Handler");
   fclose(from_child);
   //-- Get Return Status
   ai_return_status = 0;
-  // LOGS("Installer: Wait For PID\n");
+  // LOGS("Installer: Wait For PID");
   waitpid(pid, &ai_return_status, 0);
   
   if (!WIFEXITED(ai_return_status) || WEXITSTATUS(ai_return_status) != 0) {
@@ -358,7 +358,7 @@ static void * aroma_install_package() {
     snprintf(buffer, 1023, "Installer Sucessfull (Status %d)", WEXITSTATUS(ai_return_status));
   }
   
-  // LOGS("Installer: Wait Finished\n");
+  // LOGS("Installer: Wait Finished");
   time (&rawtime);
   timeinfo = localtime (&rawtime);
   fprintf(fp, "\n\n%s\n", buffer);
@@ -366,9 +366,9 @@ static void * aroma_install_package() {
   fclose(fpi);
   fclose(fp);
   //-- Reopen Zip
-  // LOGS("Installer: Reopen ZIP\n");
+  // LOGS("Installer: Reopen ZIP");
   az_init(getArgv(1));
-  // LOGS("Installer: Post Finish message\n");
+  // LOGS("Installer: Post Finish message");
   aw_post(aw_msg(15, 0, 0, 0));
   return NULL;
 }
@@ -608,14 +608,14 @@ int aroma_start_install(
     
     switch (aw_gm(msg)) {
       case 15: {
-          // LOGS("Installer Dispatch: GOT Finish message\n");
+          // LOGS("Installer Dispatch: GOT Finish message");
           sleep(1);
           ai_run = 0;
           hWin->isActived = 0;
           pthread_join(threadProgress, NULL);
-          // LOGS("pthread_join threadProgress\n");
+          // LOGS("pthread_join threadProgress");
           pthread_join(threadInstaller, NULL);
-          // LOGS("pthread_join threadInstaller\n");
+          // LOGS("pthread_join threadInstaller");
           // Draw Navigation
           int pad         = agdp() * 4;
           aui_drawnav(bg, 0, py - pad, agw(), ph + (pad * 2));

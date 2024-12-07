@@ -150,8 +150,8 @@ byte INDR_blacklist() {
  */
 void INDR_dumpdev(INDR_DEVICEP dev) {
   /* Print Logs */
-  LOGS("INDR Input Device: %s (%s) - Class : %x\n", dev->name, dev->file, dev->devclass);
-  LOGS("  VKN : %d, CALIB : (%d,%d,%d,%d)\n", dev->vkn,
+  LOGI("INDR Input Device: %s (%s) - Class : %x", dev->name, dev->file, dev->devclass);
+  LOGI("  VKN : %d, CALIB : (%d,%d,%d,%d)", dev->vkn,
        dev->p.xi.minimum, dev->p.xi.maximum, dev->p.yi.minimum, dev->p.yi.maximum
       );
 }
@@ -231,7 +231,7 @@ byte INDR_init(AINPUTP me) {
     if (mi->n == 0) {
       /* Free Internal Data */
       free(mi);
-      LOGE("INDR ERROR: Input Device Not Found...\n");
+      LOGE("INDR ERROR: Input Device Not Found...");
       /* Error */
       return 0;
     }
@@ -245,7 +245,7 @@ byte INDR_init(AINPUTP me) {
   
   /* Free Internal Data */
   free(mi);
-  LOGE("INDR ERROR: Can't access /dev/input...\n");
+  LOGE("INDR ERROR: Can't access /dev/input...");
   /* Error */
   return 0;
 }
@@ -388,7 +388,7 @@ byte INDR_init_device(int fd, INDR_DEVICEP dev) {
   ssize_t len = ioctl(fd, EVIOCGNAME(sizeof(dev->name)), dev->name);
   
   if (len <= 0) {
-    LOGW("INDR ERROR: EVIOCGNAME for %d\n", dev->id);
+    LOGW("INDR ERROR: EVIOCGNAME for %d", dev->id);
     return 0;
   }
   
@@ -482,7 +482,7 @@ byte INDR_init_device(int fd, INDR_DEVICEP dev) {
         dev->vks[i].y     = strtol(token[3], NULL, 0);
         dev->vks[i].w     = strtol(token[4], NULL, 0);
         dev->vks[i].h     = strtol(token[5], NULL, 0);
-        LOGS("  VIRTUALKEY[%s,%i] (%i,%i,%i,%i,%i)]\n",
+        LOGS("  VIRTUALKEY[%s,%i] (%i,%i,%i,%i,%i)]",
              dev->file,
              i,
              dev->vks[i].scan,
@@ -562,7 +562,7 @@ byte INDR_getinput(AINPUTP me, AINPUT_EVENTP dest_ev) {
   while (me->internal != NULL);
   
   /* It was exit message */
-  LOGV("INDR_getinput Input Driver Already Released\n");
+  LOGV("INDR_getinput Input Driver Already Released");
   return AINPUT_EV_RET_EXIT;
 }
 
